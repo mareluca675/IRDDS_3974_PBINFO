@@ -1,0 +1,134 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int A[200001], B[200001];
+int p = 0, i, j;
+int C[400002];
+int n, m;
+
+#define START ios_base::sync_with_stdio(false);
+#define FINISH return 0;
+
+int main()
+{
+    START;
+    cin >> n >> m;
+
+    char c;
+    cin >> c;
+
+    for(i = 1; i <= n; ++ i)
+        cin >> A[i];
+
+    for(i = 1; i <= m; ++ i)
+        cin >> B[i];
+
+    sort(A + 1, A + 1 + n);
+    sort(B + 1, B + 1 + m);
+
+    ///DIFERENTA SIMETRICA
+    if(c == '%'){
+        for(i = 1, j = 1; i <= n and j <= m;){
+            if(A[i] < B[j]){
+                C[++ p] = A[i];
+                ++ i;
+            }
+            else if(A[i] > B[j]){
+                C[++ p] = B[j];
+                ++ j;
+            }
+            else{
+                ++ i;
+                ++ j;
+            }
+        }
+
+        for(; i <= n; ++ i)
+            C[++ p] = A[i];
+
+        for(; j <= m; ++ j)
+            C[++ p] = B[j];
+
+        sort(C + 1, C + 1 + p);
+        for(i = 1; i <= p; ++ i)
+            cout << C[i] << ' ';
+
+        FINISH;
+    }
+        ///INTERSECTIE
+    else if(c == '*'){
+        for(i = 1, j = 1; i <= n and j <= m;){
+            if(A[i] < B[j]){
+                ++ i;
+            }
+            else if(A[i] > B[j]){
+                ++ j;
+            }
+            else{
+                C[++ p] = A[i];
+                ++ i;
+                ++ j;
+            }
+        }
+
+        for(i = 1; i <= p; ++ i)
+            cout << C[i] << ' ';
+    }
+        ///REUNIUNE
+    else if(c == '+'){
+        for(i = 1, j = 1; i <= n and j <= m;){
+            if(A[i] < B[j]){
+                C[++ p] = A[i];
+                ++ i;
+            }
+            else if(A[i] > B[j]){
+                C[++ p] = B[j];
+                ++ j;
+            }
+            else{
+                C[++ p] = A[i];
+                ++ i;
+                ++ j;
+            }
+        }
+
+        for(; i <= n; ++ i)
+            C[++ p] = A[i];
+
+        for(; j <= m; ++ j)
+            C[++ p] = B[j];
+
+        for(i = 1; i <= p; ++ i)
+            cout << C[i] << ' ';
+
+        FINISH;
+    }
+        ///DIFERENTA
+    else if(c == '-'){
+        for(i = 1, j = 1; i <= n and j <= m;){
+            if(A[i] < B[j]){
+                C[++ p] = A[i];
+                ++ i;
+            }
+            else if(A[i] > B[j]){
+                ++ j;
+            }
+            else{
+                ++ i;
+                ++ j;
+            }
+        }
+
+        for(; i <= n; ++ i)
+            C[++ p] = A[i];
+
+        sort(C + 1, C + 1 + p);
+        for(i = 1; i <= p; ++ i)
+            cout << C[i] << ' ';
+
+        FINISH;
+    }
+
+    return 0;
+}
